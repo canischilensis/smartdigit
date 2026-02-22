@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  # ----------------------------------------
+  # MODEL REGISTRY: MLflow
+  # ----------------------------------------
+  mlflow:
+    image: python:3.10-slim
+    container_name: smartdigit_mlflow
+    ports:
+      - "5000:5000"
+    volumes:
+      # Usamos tus carpetas exactas para persistencia
+      - ./mlruns:/mlruns
+      - ./models/saved_models:/models/saved_models
+    command: >
+      bash -c "pip install mlflow && 
+      mlflow server 
+      --backend-store-uri sqlite:////mlruns/mlflow.db 
+      --default-artifact-root /models/saved_models 
+      --host 0.0.0.0 
+      --port 5000"
+    networks:
+      - smartdigit_net
+
+  # ----------------------------------------
+  # BACKEND API: Django + DRF (Preparación)
+  # ----------------------------------------
+  api:
+    build: 
+      context: .
+      # Apuntamos al Dockerfile dentro de tu carpeta de despliegue
+      dockerfile: deploy/docker/Dockerfile.api
+    container_name: smartdigit_api
+    ports:
+      - "8000:8000"
+    volumes:
+      # Montamos la carpeta api para el desarrollo en vivo de Django/DRF
+      - ./api:/app/api
+      # Montamos src por si la API necesita importar utilidades de preprocesamiento
+      - ./src:/app/src
+      # Acceso de solo lectura a los modelos exportados
+      - ./models/saved_models:/models/saved_models:ro
+    depends_on:
+      - mlflow
+    # Comando infinito para mantener el contenedor vivo antes de crear el proyecto Django
+    command: tail -f /dev/null
+    networks:
+      - smartdigit_net
+
+networks:
+  smartdigit_net:
+    driver: bridge
