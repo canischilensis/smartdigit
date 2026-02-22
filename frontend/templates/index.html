@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartDigit - MLOps End-to-End</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>SmartDigit Predictor</h1>
+        <p>Dibuja un número del 0 al 9 en el recuadro:</p>
+        
+        <div class="canvas-container">
+            <canvas id="digitCanvas" width="280" height="280"></canvas>
+        </div>
+        
+        <div class="controls">
+            <button id="clearBtn" class="btn btn-secondary">Limpiar</button>
+            <button id="predictBtn" class="btn btn-primary">Predecir Número</button>
+        </div>
+
+        <div class="result-section">
+            <h2>Predicción del Modelo: <span id="result">-</span></h2>
+        </div>
+    </div>
+
+    <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

@@ -1,4 +1,3 @@
-version: '3.8'
 
 services:
   # ----------------------------------------
@@ -35,12 +34,9 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      # Montamos la carpeta api para el desarrollo en vivo de Django/DRF
       - ./api:/app/api
-      # Montamos src por si la API necesita importar utilidades de preprocesamiento
-      - ./src:/app/src
-      # Acceso de solo lectura a los modelos exportados
       - ./models/saved_models:/models/saved_models:ro
+      - ./frontend:/app/frontend
     depends_on:
       - mlflow
     # Comando infinito para mantener el contenedor vivo antes de crear el proyecto Django

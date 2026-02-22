@@ -1,0 +1,83 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 5px;
+}
+
+p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.canvas-container {
+    margin: 0 auto 20px auto;
+    /* Borde visible para delimitar el área exacta de 280x280 */
+    border: 3px solid #2c3e50; 
+    width: 280px;
+    height: 280px;
+    border-radius: 8px;
+    background-color: #fff;
+    cursor: crosshair; /* Cambia el cursor para indicar que se puede dibujar */
+}
+
+.controls {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 25px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.btn-primary {
+    background-color: #2980b9;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #1a5276;
+}
+
+.btn-secondary {
+    background-color: #95a5a6;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #7f8c8d;
+}
+
+.result-section h2 {
+    color: #2c3e50;
+    font-weight: normal;
+}
+
+#result {
+    color: #27ae60;
+    font-weight: bold;
+    font-size: 1.5em;
+}

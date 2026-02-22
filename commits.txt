@@ -1,0 +1,28 @@
+fix(mlops): actualizar dependencias, documentar arquitectura y aislar error de deserialización de Keras
+
+Se aplicó una reestructuración enfocada en la paridad de entornos (Environment Parity) entre el notebook de entrenamiento y el contenedor de producción, además de estandarizar la documentación.
+
+CAMBIOS IMPLEMENTADOS:
+- docs: Creado README.md "Production Ready" detallando la arquitectura de microservicios, stack tecnológico (Django, Docker, TensorFlow) y metodología MLOps.
+- build: Modificado `requirements.txt` forzando versiones estrictas (`tensorflow-cpu==2.17.0`, `keras==3.4.1`) para intentar igualar el entorno de Colab.
+- refactor(inference): Actualizado `api/apps/inference/apps.py` para apuntar al artefacto legacy `modelo_mnist_cnn_produccion.h5`, cargándolo con `compile=False` para evitar advertencias del optimizador.
+- config: Ajuste en volúmenes de `docker-compose.yml` para permitir lectura correcta de la carpeta de modelos.
+
+🔴 ESTADO PENDIENTE (WORK IN PROGRESS / BLOCKER):
+Persiste un error crítico durante la fase `ready()` de Django al intentar subir el modelo a la memoria RAM del servidor.
+
+Detalle del error:
+`Exception encountered: Unrecognized keyword arguments passed to Dense: {'quantization_config': None}`
+
+Contexto del bug:
+Incompatibilidad profunda en la serialización de la capa 'Dense' generada por Keras 3. El entorno de producción falla al interpretar el parámetro inyectado 'quantization_config'. 
+
+Intentos de mitigación fallidos documentados:
+1. Interceptación de clases mediante `custom_objects` (`kwargs.pop`).
+2. Uso de banderas `safe_mode=False` y `compile=False`.
+3. Re-exportación forzada a formato antiguo (.h5) desde el notebook original.
+4. Purga total de caché de Docker (`docker system prune -a`) y reconstrucción estricta.
+
+Próximos pasos a investigar:
+- Extraer la arquitectura cruda en formato JSON y cargar únicamente los pesos (.h5) por separado.
+- Evaluar construir y entrenar la CNN directamente dentro del contenedor base de la API para garantizar un 100% de compatibilidad binaria.

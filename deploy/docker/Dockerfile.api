@@ -1,0 +1,25 @@
+# deploy/docker/Dockerfile.api
+FROM python:3.10-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# 1. Establecemos el directorio de trabajo
+WORKDIR /app
+
+# 2. Instalamos dependencias del sistema
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# 3. Copiamos el requirements.txt a /app/ (que es el WORKDIR actual)
+COPY requirements.txt .
+
+# 4. Instalamos las librerías
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# 5. Cambiamos el WORKDIR a la subcarpeta api para que los comandos 
+# de django-admin y manage.py funcionen directamente
+WORKDIR /app/api

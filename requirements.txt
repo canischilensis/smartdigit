@@ -1,0 +1,23 @@
+# ==========================================
+# requirements.txt
+# ==========================================
+
+# 2. Machine Learning & Data Processing
+# Machine Learning & Data
+tensorflow-cpu>=2.17.0
+keras>=3.0.0
+numpy<2.0,>=1.26
+Pillow<11.0,>=10.2
+
+# Backend & API
+Django<5.0,>=4.2
+djangorestframework<4.0,>=3.14
+django-cors-headers<5.0,>=4.0
+mlflow<3.0,>=2.10
+gunicorn<22.0,>=21.2  
+
+# 3. MLOps & Model Registry
+mlflow>=2.10,<3.0
+
+# 4. Servidor WSGI (Producción)
+gunicorn>=21.2,<22.0
