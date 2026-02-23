@@ -1,21 +1,16 @@
-fix(inference): migrar a SavedModel y estabilizar inferencia end-to-end (Django + Frontend)
+feat(frontend): rediseño del dashboard de inferencia y validación de input en canvas
 
-Se resolvió definitivamente el blocker de deserialización de Keras ("quantization_config") eliminando la carga vía load_model()
-y estandarizando el artefacto de producción como TensorFlow SavedModel.
+Se implementó una actualización mayor en la interfaz de usuario (UI/UX) para transformar la salida cruda de la API en un dashboard visual profesional, optimizando la interacción del usuario y protegiendo el backend.
 
 CAMBIOS IMPLEMENTADOS:
-- fix(inference): reemplazo de carga Keras/H5 por tf.saved_model.load() en api/apps/inference/apps.py, usando endpoint "serve" (o serving_default).
-- build/infra: se aseguró el montaje de models/saved_models como volumen de solo lectura y se validó presencia de saved_model.pb + variables/.
-- fix(frontend): corrección del flujo de fetch en frontend/static/js/app.js:
-  - payload estable { image: canvas.toDataURL("image/png") }
-  - manejo correcto de errores (HTTP status + mensaje real)
-  - consumo de respuesta { pred, probs } (contrato real de la API)
-- docs: actualización de README/Runbook con checklist de verificación en contenedor y nota WSL (usar 127.0.0.1/localhost; 0.0.0.0 es bind).
 
-RESULTADO:
-- API levanta sin errores de deserialización.
-- POST /api/v1/predict/ responde 200 con {pred, probs}.
-- Frontend muestra la predicción correctamente.
+* style: Migración a CSS Grid para renderizar las probabilidades (0-9) en dos columnas, optimizando el espacio vertical y garantizando un diseño responsivo en dispositivos móviles.
+* ui: Incorporación de diseño neumórfico, bordes suaves y resaltado dinámico (verde esmeralda) exclusivo para el tensor ganador (Top-1).
+* anim: Modificación de `frontend/static/js/app.js` para la inyección dinámica de HTML (barras de progreso) con un efecto de carga en cascada basado en delays secuenciales.
+* perf(validation): Implementación de la bandera de estado `hasDrawn`. El frontend ahora intercepta y bloquea peticiones vacías hacia la API de Django, previniendo el consumo inútil de recursos de inferencia sobre "ruido blanco" e informando al usuario.
 
-NOTAS DE DEV:
-- En desarrollo se recomienda ejecutar runserver con --noreload para evitar reinicios que afecten la carga del grafo TF en memoria.
+IMPACTO:
+
+* La visualización de inferencia queda estandarizada en formato “dashboard” (probabilidades + Top-1).
+* Se mejora la experiencia móvil y se reduce el riesgo de llamadas innecesarias al endpoint `/api/v1/predict/`.
+* La capa de presentación queda finalizada y más alineada con estándares de producción.

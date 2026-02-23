@@ -11,18 +11,27 @@
     <div class="container">
         <h1>SmartDigit Predictor</h1>
         <p>Dibuja un número del 0 al 9 en el recuadro:</p>
-        
+
         <div class="canvas-container">
             <canvas id="digitCanvas" width="280" height="280"></canvas>
         </div>
-        
+
         <div class="controls">
             <button id="clearBtn" class="btn btn-secondary">Limpiar</button>
             <button id="predictBtn" class="btn btn-primary">Predecir Número</button>
         </div>
 
         <div class="result-section">
-            <h2>Predicción del Modelo: <span id="result">-</span></h2>
+            <h2>
+                Predicción del Modelo:
+                <span id="result">-</span>
+                <span id="resultPct" class="result-pct"></span>
+            </h2>
+
+            <div class="probs-section">
+                <h3>Probabilidades por dígito</h3>
+                <div id="probsContainer" class="probs-container"></div>
+            </div>
         </div>
     </div>
 

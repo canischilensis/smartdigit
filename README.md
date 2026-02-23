@@ -2,6 +2,22 @@
 
 > **Plataforma MLOps "Production Ready" para Visión Computacional**. Sistema basado en microservicios contenerizados que implementa inferencia en tiempo real de una CNN (Red Neuronal Convolucional) para el reconocimiento de dígitos manuscritos, resolviendo desafíos de paridad de entornos e integrando una API REST robusta.
 
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square\&logo=python\&logoColor=white)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=flat-square\&logo=tensorflow\&logoColor=white)
+![Keras](https://img.shields.io/badge/Keras-D00000?style=flat-square\&logo=keras\&logoColor=white)
+![NumPy](https://img.shields.io/badge/NumPy-013243?style=flat-square\&logo=numpy\&logoColor=white)
+![Pillow](https://img.shields.io/badge/Pillow-6C63FF?style=flat-square\&logo=python\&logoColor=white)
+![Django](https://img.shields.io/badge/Django-092E20?style=flat-square\&logo=django\&logoColor=white)
+![Django%20REST%20Framework](https://img.shields.io/badge/Django_REST_Framework-ff1709?style=flat-square\&logo=django\&logoColor=white)
+![CORS](https://img.shields.io/badge/django--cors--headers-0B7285?style=flat-square)
+![MLflow](https://img.shields.io/badge/MLflow-0194E2?style=flat-square)
+![Gunicorn](https://img.shields.io/badge/Gunicorn-499848?style=flat-square)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square\&logo=docker\&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square\&logo=html5\&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square\&logo=css3\&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square\&logo=javascript\&logoColor=black)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square\&logo=sqlite\&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square\&logo=python\&logoColor=white) ![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=flat-square\&logo=tensorflow\&logoColor=white) ![Keras](https://img.shields.io/badge/Keras-D00000?style=flat-square\&logo=keras\&logoColor=white) ![NumPy](https://img.shields.io/badge/NumPy-013243?style=flat-square\&logo=numpy\&logoColor=white) ![Pillow](https://img.shields.io/badge/Pillow-6C63FF?style=flat-square\&logo=python\&logoColor=white) ![Django](https://img.shields.io/badge/Django-092E20?style=flat-square\&logo=django\&logoColor=white) ![Django%20REST%20Framework](https://img.shields.io/badge/Django_REST_Framework-ff1709?style=flat-square\&logo=django\&logoColor=white) ![MLflow](https://img.shields.io/badge/MLflow-0194E2?style=flat-square) ![Gunicorn](https://img.shields.io/badge/Gunicorn-499848?style=flat-square) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square\&logo=docker\&logoColor=white) ![Docker%20Compose](https://img.shields.io/badge/Docker_Compose-2496ED?style=flat-square\&logo=docker\&logoColor=white) ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square\&logo=html5\&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square\&logo=css3\&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square\&logo=javascript\&logoColor=black) ![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square\&logo=sqlite\&logoColor=white) 
 ---
 
 ## 📋 Table of Contents

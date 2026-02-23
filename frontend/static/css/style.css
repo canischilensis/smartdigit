@@ -1,83 +1,249 @@
+/* =========================================
+   BASE Y LAYOUT PRINCIPAL
+   ========================================= */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f7f6;
+    background-color: #f0f4f8; /* Un gris-azulado más moderno */
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: flex-start;
+    min-height: 100vh;
+    height: auto;
     margin: 0;
+    padding: 40px 15px;
+    overflow-y: auto;
 }
 
 .container {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background-color: #ffffff;
+    padding: 35px 30px;
+    border-radius: 16px; /* Bordes más suaves */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Sombra más difuminada y elegante */
     text-align: center;
+    width: min(600px, 95vw); /* Un poco más ancho para acomodar las 2 columnas */
 }
 
 h1 {
-    color: #333;
-    margin-bottom: 5px;
+    color: #1e293b;
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-weight: 700;
 }
 
 p {
-    color: #666;
-    margin-bottom: 20px;
+    color: #64748b;
+    margin-bottom: 25px;
+    font-size: 0.95em;
 }
 
+/* =========================================
+   ÁREA DE DIBUJO (CANVAS)
+   ========================================= */
 .canvas-container {
-    margin: 0 auto 20px auto;
-    /* Borde visible para delimitar el área exacta de 280x280 */
-    border: 3px solid #2c3e50; 
+    margin: 0 auto 25px auto;
+    border: 3px dashed #cbd5e1; /* Borde punteado estilo "Dropzone" */
     width: 280px;
     height: 280px;
-    border-radius: 8px;
-    background-color: #fff;
-    cursor: crosshair; /* Cambia el cursor para indicar que se puede dibujar */
+    border-radius: 12px;
+    background-color: #ffffff;
+    cursor: crosshair;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
 }
 
+.canvas-container:hover {
+    border-color: #94a3b8;
+}
+
+#digitCanvas {
+    display: block;
+    background-color: #ffffff;
+}
+
+/* =========================================
+   CONTROLES Y BOTONES
+   ========================================= */
 .controls {
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 25px;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
 }
 
 .btn {
-    padding: 10px 20px;
+    padding: 12px 24px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
-    transition: background-color 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    min-width: 140px;
+}
+
+.btn:active {
+    transform: translateY(2px);
 }
 
 .btn-primary {
-    background-color: #2980b9;
+    background-color: #0f172a; /* Azul noche / Casi negro */
     color: white;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
 }
 
 .btn-primary:hover {
-    background-color: #1a5276;
+    background-color: #334155;
+    box-shadow: 0 6px 15px rgba(15, 23, 42, 0.3);
 }
 
 .btn-secondary {
-    background-color: #95a5a6;
-    color: white;
+    background-color: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
 }
 
 .btn-secondary:hover {
-    background-color: #7f8c8d;
+    background-color: #e2e8f0;
+    color: #0f172a;
 }
 
+/* =========================================
+   SECCIÓN DE RESULTADOS
+   ========================================= */
 .result-section h2 {
-    color: #2c3e50;
-    font-weight: normal;
+    color: #334155;
+    font-weight: 600;
+    margin: 10px 0 20px 0;
+    font-size: 1.2em;
 }
 
 #result {
-    color: #27ae60;
-    font-weight: bold;
-    font-size: 1.5em;
+    color: #10b981; /* Verde esmeralda */
+    font-weight: 800;
+    font-size: 1.8em;
+    margin-left: 5px;
+}
+
+.result-pct {
+    margin-left: 8px;
+    color: #64748b;
+    font-size: 0.8em;
+    font-weight: 600;
+    vertical-align: middle;
+    background: #f1f5f9;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+/* =========================================
+   BARRAS DE PROBABILIDAD (DASHBOARD)
+   ========================================= */
+.probs-section {
+    margin-top: 25px;
+    text-align: left;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 20px;
+}
+
+.probs-section h3 {
+    margin: 0 0 15px 0;
+    color: #475569;
+    font-size: 1.05em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Aquí está la magia: Cuadrícula de 2 columnas */
+.probs-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 20px;
+}
+
+/* Fila individual de cada número */
+.prob-row {
+    display: grid;
+    grid-template-columns: 20px 1fr 50px;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background-color: #f8fafc;
+    border: 1px solid #f1f5f9;
+    transition: all 0.3s ease;
+}
+
+/* Resaltado del número ganador */
+.prob-row.is-top {
+    background-color: #ecfdf5; /* Fondo verde muy claro */
+    border: 1px solid #10b981;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
+    transform: scale(1.02);
+}
+
+.prob-label {
+    font-weight: 800;
+    color: #64748b;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+.prob-row.is-top .prob-label {
+    color: #10b981;
+}
+
+/* Envoltorio de la barra de progreso */
+.prob-bar-wrap {
+    height: 8px;
+    background-color: #e2e8f0;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+/* La barra de color que se llena */
+.prob-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #94a3b8;
+    border-radius: 999px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* Animación fluida */
+}
+
+.prob-row.is-top .prob-bar {
+    background-color: #10b981; /* Verde brillante si gana */
+}
+
+/* El texto del porcentaje */
+.prob-value {
+    text-align: right;
+    color: #475569;
+    font-size: 0.85em;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.prob-row.is-top .prob-value {
+    color: #10b981;
+}
+
+/* =========================================
+   RESPONSIVE (MÓVILES)
+   ========================================= */
+@media (max-width: 500px) {
+    /* En celulares, colapsamos a 1 sola columna para que no quede apretado */
+    .probs-container {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    
+    .controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn {
+        width: 100%;
+        min-width: unset;
+    }
 }
