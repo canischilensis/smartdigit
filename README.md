@@ -56,9 +56,7 @@ Declarado por adelantado para evitar lecturas equivocadas:
 
 ## Resultados
 
-> **PENDIENTE DE COMPLETAR.** Los números salen del notebook de entrenamiento en
-> `notebooks/`. Mientras esta tabla esté vacía, el repositorio no reporta
-> desempeño.
+> **PENDIENTE DE COMPLETAR.**
 
 | Métrica | Valor | Conjunto |
 | --- | --- | --- |
