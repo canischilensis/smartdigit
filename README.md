@@ -1,329 +1,338 @@
-# ✍️ SmartDigit: End-to-End MLOps Computer Vision Platform
+# SmartDigit — CNN de reconocimiento de dígitos servida por API en Docker
 
-> **Plataforma MLOps "Production Ready" para Visión Computacional**. Sistema basado en microservicios contenerizados que implementa inferencia en tiempo real de una CNN (Red Neuronal Convolucional) para el reconocimiento de dígitos manuscritos, resolviendo desafíos de paridad de entornos e integrando una API REST robusta.
+Clasificador de dígitos manuscritos (MNIST) empaquetado en un contenedor Docker,
+expuesto por una API REST en Django y consumido desde una interfaz de dibujo en
+HTML5 Canvas.
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square\&logo=python\&logoColor=white)
-![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=flat-square\&logo=tensorflow\&logoColor=white)
-![Keras](https://img.shields.io/badge/Keras-D00000?style=flat-square\&logo=keras\&logoColor=white)
-![NumPy](https://img.shields.io/badge/NumPy-013243?style=flat-square\&logo=numpy\&logoColor=white)
-![Pillow](https://img.shields.io/badge/Pillow-6C63FF?style=flat-square\&logo=python\&logoColor=white)
-![Django](https://img.shields.io/badge/Django-092E20?style=flat-square\&logo=django\&logoColor=white)
-![Django%20REST%20Framework](https://img.shields.io/badge/Django_REST_Framework-ff1709?style=flat-square\&logo=django\&logoColor=white)
-![CORS](https://img.shields.io/badge/django--cors--headers-0B7285?style=flat-square)
-![MLflow](https://img.shields.io/badge/MLflow-0194E2?style=flat-square)
-![Gunicorn](https://img.shields.io/badge/Gunicorn-499848?style=flat-square)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square\&logo=docker\&logoColor=white)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square\&logo=html5\&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square\&logo=css3\&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square\&logo=javascript\&logoColor=black)
-![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square\&logo=sqlite\&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square\&logo=python\&logoColor=white) ![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=flat-square\&logo=tensorflow\&logoColor=white) ![Keras](https://img.shields.io/badge/Keras-D00000?style=flat-square\&logo=keras\&logoColor=white) ![NumPy](https://img.shields.io/badge/NumPy-013243?style=flat-square\&logo=numpy\&logoColor=white) ![Pillow](https://img.shields.io/badge/Pillow-6C63FF?style=flat-square\&logo=python\&logoColor=white) ![Django](https://img.shields.io/badge/Django-092E20?style=flat-square\&logo=django\&logoColor=white) ![Django%20REST%20Framework](https://img.shields.io/badge/Django_REST_Framework-ff1709?style=flat-square\&logo=django\&logoColor=white) ![MLflow](https://img.shields.io/badge/MLflow-0194E2?style=flat-square) ![Gunicorn](https://img.shields.io/badge/Gunicorn-499848?style=flat-square) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square\&logo=docker\&logoColor=white) ![Docker%20Compose](https://img.shields.io/badge/Docker_Compose-2496ED?style=flat-square\&logo=docker\&logoColor=white) ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square\&logo=html5\&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square\&logo=css3\&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square\&logo=javascript\&logoColor=black) ![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square\&logo=sqlite\&logoColor=white) 
----
+El foco del proyecto no es el modelo —MNIST es un dataset de referencia
+resuelto— sino el paso de **notebook a servicio ejecutable**: paridad de
+entornos entre entrenamiento e inferencia, serialización estable del artefacto y
+contrato explícito entre frontend y API.
 
-## 📋 Table of Contents
-
-1. [About the Project](https://www.google.com/search?q=%23-about-the-project)
-2. [Tech Stack](https://www.google.com/search?q=%23-tech-stack)
-3. [Features & Architecture](https://www.google.com/search?q=%23-features--architecture)
-4. [Project Structure](https://www.google.com/search?q=%23-project-structure)
-5. [Getting Started (Docker)](https://www.google.com/search?q=%23-getting-started-docker)
-6. [ML Methodology](https://www.google.com/search?q=%23-ml-methodology)
-7. [Evolution & MLOps](https://www.google.com/search?q=%23-evolution--mlops)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=flat-square&logo=tensorflow&logoColor=white)
+![Keras](https://img.shields.io/badge/Keras-D00000?style=flat-square&logo=keras&logoColor=white)
+![Django](https://img.shields.io/badge/Django-092E20?style=flat-square&logo=django&logoColor=white)
+![DRF](https://img.shields.io/badge/Django_REST_Framework-ff1709?style=flat-square&logo=django&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
+![NumPy](https://img.shields.io/badge/NumPy-013243?style=flat-square&logo=numpy&logoColor=white)
+![Pillow](https://img.shields.io/badge/Pillow-6C63FF?style=flat-square&logo=python&logoColor=white)
 
 ---
 
-## 🚀 About The Project
+## Índice
 
-**SmartDigit** representa un ciclo de vida completo de Machine Learning (MLOps). Más allá de entrenar un modelo en un Jupyter Notebook, este proyecto se enfoca en la **Ingeniería de Software para IA**. Resuelve problemas reales de la industria como el "Dependency Hell" entre versiones de Keras/TensorFlow, empaquetado de artefactos y despliegue agnóstico mediante microservicios.
-
-### Key Features
-
-* 🐳 **Portable Deployment:** Empaquetado completo en **Docker** (Python 3.10 Slim). Garantiza la reproducibilidad exacta del entorno de inferencia en cualquier infraestructura, aislando las dependencias matemáticas pesadas.
-* 🧩 **Microservices Architecture:** Desacoplamiento total. El modelo de Machine Learning es consumido a través de una API RESTful en Django, separando la capa de aplicación de la capa de inteligencia artificial (preparado para integrarse con MLflow).
-* ⚡ **Real-Time Inference Engine:** Interfaz de usuario interactiva (Canvas HTML5) que captura dibujos a mano alzada, los codifica en Base64, y los procesa en milisegundos contra el modelo cargado permanentemente en la memoria RAM del servidor.
-* 🛡️ **Robust Artifact Management:** Manejo avanzado de serialización de modelos. Implementa un *fallback* a formato legacy (`.h5` / HDF5) para garantizar la compatibilidad estricta entre el entorno de entrenamiento (TensorFlow 2.17+) y el entorno de producción.
-
----
-
-## 🛠 Tech Stack
-
-### Infrastructure & MLOps
-
-* **Docker & Docker Compose:** Orquestación de contenedores y mapeo de volúmenes en tiempo real.
-* **MLflow:** (Integrable) Trackeo de experimentos y registro de artefactos.
-* **Gunicorn:** Servidor WSGI para producción.
-
-### Backend & API
-
-* **Python 3.10+:** Lenguaje base (Slim footprint).
-* **Django 4.2+:** Framework core del backend web.
-* **Django REST Framework (DRF):** Construcción de endpoints para inferencia.
-
-### Core Machine Learning & Computer Vision
-
-* **TensorFlow / Keras 3:** Framework de Deep Learning.
-* **NumPy:** Manipulación de tensores y arrays.
-* **Pillow (PIL):** Procesamiento de imágenes (Inversión, Grayscale, Resizing).
-
-### Frontend
-
-* **HTML5 Canvas & Vanilla JS:** UI interactiva sin dependencias pesadas.
-* **CSS3:** Diseño responsivo y moderno.
+1. [Alcance y limitaciones](#alcance-y-limitaciones)
+2. [Resultados](#resultados)
+3. [Arquitectura](#arquitectura)
+4. [Modelo](#modelo)
+5. [Estructura del proyecto](#estructura-del-proyecto)
+6. [Puesta en marcha](#puesta-en-marcha)
+7. [Contrato de la API](#contrato-de-la-api)
+8. [Postmortem: notebook → contenedor](#postmortem-notebook--contenedor)
+9. [Evolución del proyecto](#evolución-del-proyecto)
+10. [Trabajo pendiente](#trabajo-pendiente)
 
 ---
 
-## 🏗 Features & Architecture
+## Alcance y limitaciones
 
-El sistema implementa una arquitectura orientada a servicios con un flujo de datos bidireccional optimizado:
+Declarado por adelantado para evitar lecturas equivocadas:
 
-1. **Interacción (Frontend):** El usuario dibuja en el Canvas web. El trazo se convierte en una cadena Base64.
-2. **Recepción (Django API):** El endpoint `/api/v1/predict/` recibe el payload JSON.
-3. **Preprocesamiento (Pipeline):** * Decodificación de la imagen.
-* Conversión a escala de grises (`'L'`).
-* Redimensionamiento estricto a tensores de `28x28`.
-* **Inversión de color:** (Blanco a Negro) para emparejar la distribución de los datos originales del dataset MNIST.
-* Normalización `/ 255.0` y expansión de dimensiones `(1, 28, 28, 1)`.
-
-
-4. **Inferencia en Memoria:** El tensor pasa por el artefacto `.h5` previamente cargado en la RAM durante el inicio de la app (`apps.py`).
-5. **Respuesta:** La API devuelve la clase ganadora (`np.argmax`) al frontend.
+- **MNIST es un dataset de referencia**, no un problema de negocio. El valor de
+  este repositorio está en la ingeniería de despliegue, no en el desempeño del
+  clasificador.
+- **No está desplegado en ningún entorno público.** Corre en local con Docker
+  Compose.
+- **No hay monitoreo, reentrenamiento ni versionado automático de modelos.**
+  MLflow no está integrado.
+- **Sin integración continua.** Los tests existentes se ejecutan a mano.
+- La distribución de los trazos dibujados en el canvas **no es la misma** que la
+  de MNIST (grosor, centrado, antialiasing). El preprocesamiento acorta esa
+  distancia, pero no la elimina: el desempeño sobre trazos de usuario es menor
+  que sobre el conjunto de prueba.
 
 ---
 
-## 📂 Project Structure
+## Resultados
 
-Estructura final aprobada para producción MLOps:
+> **PENDIENTE DE COMPLETAR.** Los números salen del notebook de entrenamiento en
+> `notebooks/`. Mientras esta tabla esté vacía, el repositorio no reporta
+> desempeño.
 
-```bash
+| Métrica | Valor | Conjunto |
+| --- | --- | --- |
+| Accuracy | `PENDIENTE` | Test MNIST (10.000 imágenes) |
+| Accuracy | `PENDIENTE` | Entrenamiento |
+| Épocas de entrenamiento | `PENDIENTE` | — |
+| Clase con más errores | `PENDIENTE` | Matriz de confusión |
+
+Para obtener los valores:
+
+```python
+import tensorflow as tf
+from tensorflow.keras.datasets import mnist
+
+(_, _), (x_test, y_test) = mnist.load_data()
+x_test = x_test.reshape(-1, 28, 28, 1) / 255.0
+
+modelo = tf.keras.models.load_model("models/saved_models/modelo_mnist_cnn_produccion.h5")
+loss, acc = modelo.evaluate(x_test, y_test, verbose=0)
+print(f"Accuracy en test: {acc:.4f}")
+```
+
+Y para la matriz de confusión:
+
+```python
+import numpy as np
+from sklearn.metrics import confusion_matrix, classification_report
+
+y_pred = np.argmax(modelo.predict(x_test, verbose=0), axis=1)
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred, digits=4))
+```
+
+---
+
+## Arquitectura
+
+Un contenedor con la aplicación Django, que carga el artefacto del modelo una
+sola vez al arranque y lo mantiene en memoria. El artefacto se monta por volumen,
+de modo que reemplazarlo no obliga a reconstruir la imagen.
+
+Flujo de una predicción:
+
+1. **Frontend.** El usuario dibuja en un `<canvas>`; el trazo se serializa como
+   dataURL Base64.
+2. **API.** `POST /api/v1/predict/` recibe el JSON.
+3. **Preprocesamiento.**
+   - Decodificación de la imagen.
+   - Conversión a escala de grises (`'L'`).
+   - Redimensionamiento a `28x28`.
+   - Inversión de color (fondo blanco → fondo negro), para igualar la
+     convención de MNIST.
+   - Normalización `/255.0` y expansión a `(1, 28, 28, 1)`.
+4. **Inferencia.** El tensor pasa por el modelo ya cargado en RAM (`apps.py`).
+5. **Respuesta.** Clase ganadora (`argmax`) y vector de probabilidades.
+
+---
+
+## Modelo
+
+Red convolucional estándar para clasificación de imágenes en escala de grises:
+
+- Capas `Conv2D` con activación `ReLU`, seguidas de `MaxPooling2D`.
+- Capa densa de 128 unidades.
+- Salida `Softmax` de 10 clases (dígitos 0–9).
+
+**Formato del artefacto:** `.h5` (HDF5). Se optó por HDF5 sobre `.keras` porque
+el formato basado en configuración fallaba al deserializarse en el contenedor
+por desajuste de versiones de Keras entre entrenamiento e inferencia — ver
+[Incidente A](#incidente-a--error-de-deserialización-quantization_config).
+
+---
+
+## Estructura del proyecto
+
+```
 smartdigit/
 ├── deploy/
 │   └── docker/
-│       └── Dockerfile.api      # 🐳 Receta de la Imagen del Backend/ML
-├── docker-compose.yml          # 🐙 Orquestador de Microservicios
-├── requirements.txt            # Dependencias estrictas (Environment Parity)
-├── api/                        # ⚙️ Backend REST Framework
-│   ├── config/                 # Configuraciones de Django
+│       └── Dockerfile.api      # Imagen del backend + dependencias de ML
+├── docker-compose.yml
+├── requirements.txt            # Versiones fijadas (paridad de entorno)
+├── api/
+│   ├── config/                 # Configuración de Django
 │   ├── apps/
-│   │   └── inference/          # Lógica de ML y Endpoint de predicción
-│   │       ├── apps.py         # Carga del modelo en memoria RAM
-│   │       └── views.py        # Pipeline de preprocesamiento CV
+│   │   └── inference/
+│   │       ├── apps.py         # Carga del modelo al arranque
+│   │       └── views.py        # Preprocesamiento e inferencia
 │   └── manage.py
-├── frontend/                   # 🎨 Interfaz de Usuario
+├── frontend/
 │   └── static/
 │       ├── css/style.css
 │       └── js/app.js
+├── notebooks/                  # Entrenamiento y evaluación
+├── tests/
 └── models/
-    └── saved_models/           # 💾 Model Registry (Montado en Volumen)
-        └── modelo_mnist_cnn_produccion.h5 # Artefacto Legacy Estable
-
+    └── saved_models/
+        └── modelo_mnist_cnn_produccion.h5
 ```
 
 ---
 
-## 🏁 Getting Started (Docker)
+## Puesta en marcha
 
-La forma recomendada de ejecutar **SmartDigit** es mediante Docker Compose. Su máquina host no necesita tener instalado TensorFlow ni dependencias matemáticas complejas.
----
+La máquina anfitriona no necesita TensorFlow ni ninguna dependencia de ML: todo
+vive dentro del contenedor.
 
-## 🧯 Postmortem & Troubleshooting (Keras/TensorFlow → Docker/WSL)
-
-### Contexto
-
-Durante el paso de **entrenamiento en notebook (Keras 3 / TF reciente)** a **inferencia en contenedor** (`python:3.10-slim` + Django), aparecieron errores típicos de *environment parity* y de contrato Frontend↔API.
-
----
-
-### Incidente A — Error de deserialización `quantization_config` (Keras `.keras` / `.h5`)
-
-**Síntoma**
-
-* Al cargar el modelo en el contenedor con `tf.keras.models.load_model(...)` (tanto `.keras` como `.h5`) fallaba con:
-
-  * `Unrecognized keyword arguments passed to Dense: {'quantization_config': None}`
-
-**Causa raíz**
-
-* **Desajuste de compatibilidad** entre cómo Keras serializó la topología (incluyendo `quantization_config`) y cómo el runtime del contenedor intentaba deserializar capas como `Dense`.
-
-**Solución definitiva**
-
-* Evitar `load_model()` (config-based) y **exportar el artefacto como TensorFlow SavedModel**, más estable para inferencia en producción.
-* Exportación desde notebook:
-
-```python
-import keras
-
-m = keras.models.load_model("modelo_mnist_cnn_produccion.keras", compile=False)
-m.export("modelo_mnist_savedmodel", format="tf_saved_model")
-```
-
-* Ubicación recomendada del artefacto (montado por volumen):
-
-  * `models/saved_models/modelo_mnist_savedmodel/`
-  * Debe contener `saved_model.pb` + `variables/`
-
-**Verificación rápida (dentro del contenedor)**
+### 1. Clonar y construir
 
 ```bash
-docker compose exec api python -c "import tensorflow as tf; sm=tf.saved_model.load('/models/saved_models/modelo_mnist_savedmodel'); print('OK load. has_serve=', hasattr(sm,'serve'))"
-```
-
----
-
-### Incidente B — Django autoreload y funciones TF (“variables deleted”)
-
-**Síntoma**
-
-* Respuestas 500 con mensaje tipo:
-
-  * “Called a function referencing variables which have been deleted…”
-
-**Causa raíz**
-
-* El **autoreloader** de Django reinicia procesos/hilos; en modelos TF cargados como `SavedModel`, esto puede invalidar referencias internas si se carga más de una vez o en el proceso equivocado.
-
-**Mitigación recomendada en desarrollo**
-
-* Levantar Django sin autoreload:
-
-```bash
-docker compose exec api python manage.py runserver 0.0.0.0:8000 --noreload
-```
-
-**Recomendación adicional (buena práctica)**
-
-* En `apps.py`, cargar el modelo una sola vez (evitar doble carga en entornos con reload).
-
----
-
-### Incidente C — “Error de conexión” en la UI, pero la API funcionaba
-
-**Síntoma**
-
-* La web mostraba “Error de conexión”, pero el endpoint respondía bien al probar con `requests` o `fetch`.
-
-**Causa raíz**
-
-* El frontend enviaba un **payload distinto al esperado** o manejaba errores de forma genérica (y en algunos cambios hubo variables/flujo async incorrectos).
-* Importante: `GET /api/v1/predict/` puede devolver **405 Method Not Allowed** (normal), porque el endpoint es **POST**.
-
-**Contrato correcto**
-
-* **Request**: `POST /api/v1/predict/` con JSON:
-
-```json
-{ "image": "<dataURL base64 de canvas>" }
-```
-
-* **Response**:
-
-```json
-{ "pred": 3, "probs": [ ...10 floats... ] }
-```
-
-**Prueba mínima desde el navegador (DevTools)**
-
-```js
-fetch("http://127.0.0.1:8000/api/v1/predict/", {
-  method: "POST",
-  headers: {"Content-Type":"application/json"},
-  body: JSON.stringify({ image: document.querySelector("canvas").toDataURL("image/png") })
-})
-.then(r => r.json().then(data => ({ok:r.ok, status:r.status, data})))
-.then(({ok, status, data}) => console.log("ok:", ok, "status:", status, "data:", data))
-.catch(console.error);
-```
-
----
-
-### Nota WSL/Windows (importante)
-
-* `0.0.0.0` **no es una URL para navegar**; es una dirección de *bind*.
-* Desde el navegador en Windows, usa:
-
-  * `http://127.0.0.1:8000/` o `http://localhost:8000/`
-* **No es necesario mover el proyecto a Windows** para que “se conecte”: el port mapping de Docker/WSL lo resuelve si los contenedores están bien expuestos (`ports: - "8000:8000"`).
-
----
-
-### Checklist final (para evitar recaídas)
-
-* [ ] El artefacto en `models/saved_models/modelo_mnist_savedmodel/` contiene `saved_model.pb` y `variables/`.
-* [ ] `apps.py` carga vía `tf.saved_model.load()` (no `load_model()`).
-* [ ] En desarrollo, correr `runserver --noreload` para evitar reinicios que rompan TF.
-* [ ] Frontend envía `{image: canvas.toDataURL(...)}` y consume `{pred, probs}`.
-* [ ] El endpoint es `POST /api/v1/predict/` (GET puede devolver 405 y es normal).
-
----
-
-### 1. Clonar y Construir
-
-```bash
-git clone https://github.com/tu-usuario/smartdigit.git
+git clone https://github.com/canischilensis/smartdigit.git
 cd smartdigit
 
-# Limpiar caché y construir la infraestructura MLOps
 docker compose build --no-cache api
 docker compose up -d
-
 ```
 
-### 2. Inicializar y Levantar el Motor
+### 2. Inicializar y levantar
 
 ```bash
-# Migrar la base de datos interna de Django
 docker compose exec api python manage.py migrate
 
-# Iniciar el servidor (carga el modelo en memoria)
-docker compose exec api python manage.py runserver 0.0.0.0:8000
-
+# --noreload evita que el autoreloader de Django reinicie el proceso
+# e invalide las referencias internas del modelo cargado (ver Incidente B)
+docker compose exec api python manage.py runserver 0.0.0.0:8000 --noreload
 ```
 
 ### 3. Uso
 
-Abra su navegador web y diríjase a: `http://localhost:8000`.
-Dibuje un número en el recuadro y observe la predicción en tiempo real.
+Abrir `http://localhost:8000`, dibujar un dígito y ver la predicción.
+
+> En Windows con WSL, usar `http://127.0.0.1:8000` o `http://localhost:8000`.
+> `0.0.0.0` es una dirección de *bind*, no una URL navegable.
 
 ---
 
-## 🧮 ML Methodology
+## Contrato de la API
 
-El motor de inteligencia artificial está basado en arquitecturas estándar de visión computacional:
+**Petición**
 
-* **Arquitectura del Modelo:** Convolutional Neural Network (CNN).
-* **Capas Extractoras:** Múltiples capas `Conv2D` con activación `ReLU`, seguidas de `MaxPooling2D` para reducción de dimensionalidad espacial.
-* **Capas Clasificadoras:** Red densamente conectada (`Dense` 128 unidades) que culmina en una capa `Softmax` de 10 unidades (dígitos del 0 al 9).
-* **Formato de Artefacto:** `.h5` (HDF5) seleccionado estratégicamente sobre `.keras` para garantizar la serialización segura de los pesos y la arquitectura en un entorno contenerizado con restricciones POSIX.
+```
+POST /api/v1/predict/
+Content-Type: application/json
+```
+
+```json
+{ "image": "<dataURL base64 del canvas>" }
+```
+
+**Respuesta**
+
+```json
+{ "pred": 3, "probs": [0.01, 0.00, 0.02, 0.94, ...] }
+```
+
+`GET /api/v1/predict/` devuelve **405 Method Not Allowed**. Es el comportamiento
+esperado: el endpoint solo acepta POST.
+
+**Prueba mínima desde la consola del navegador**
+
+```js
+fetch("http://127.0.0.1:8000/api/v1/predict/", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ image: document.querySelector("canvas").toDataURL("image/png") })
+})
+  .then(r => r.json().then(data => ({ ok: r.ok, status: r.status, data })))
+  .then(console.log)
+  .catch(console.error);
+```
 
 ---
 
-## 📊 Evolution & MLOps
+## Postmortem: notebook → contenedor
 
-Evolución del madurez del proyecto:
+Tres fallos reales encontrados al pasar de entrenamiento en notebook (Keras 3)
+a inferencia en contenedor (`python:3.10-slim` + Django). Se documentan con
+síntoma, causa raíz y verificación.
 
-| Versión | Arquitectura | Manejo del Modelo | Características Clave | Status |
-| --- | --- | --- | --- | --- |
-| v1.0 | Colab Notebook | Archivo Local | Entrenamiento exploratorio y EDA | ❌ Deprecated |
-| v2.0 | Django Monolith | Lectura por cada Request | UI Básica | ⚠️ Legacy |
-| v3.0 | Docker API | Archivo `.keras` (Inestable) | Dockerización de la API | ⚠️ Legacy |
-| **v4.0** | **MLOps Microservices** | **Carga única en RAM (`.h5`)** | **Environment Parity + Fallback seguro** | 🚀 **Production** |
+### Incidente A — Error de deserialización `quantization_config`
+
+**Síntoma.** `tf.keras.models.load_model(...)` fallaba dentro del contenedor,
+tanto con `.keras` como con `.h5`:
+
+```
+Unrecognized keyword arguments passed to Dense: {'quantization_config': None}
+```
+
+**Causa raíz.** Desajuste entre la versión de Keras que serializó la topología
+—incluyendo el campo `quantization_config`— y la del runtime del contenedor, que
+no reconocía ese argumento al reconstruir la capa `Dense`. Es un problema de
+paridad de entorno, no del modelo.
+
+**Solución aplicada.** Fijar la versión de las dependencias en
+`requirements.txt` y serializar en `.h5`, que guarda pesos y arquitectura sin
+depender de la reconstrucción por configuración de Keras 3.
+
+**Alternativa evaluada.** Exportar como TensorFlow SavedModel y cargar con
+`tf.saved_model.load()`, evitando por completo la ruta config-based:
+
+```python
+import keras
+m = keras.models.load_model("modelo_mnist_cnn_produccion.keras", compile=False)
+m.export("modelo_mnist_savedmodel", format="tf_saved_model")
+```
+
+Verificación dentro del contenedor:
+
+```bash
+docker compose exec api python -c "import tensorflow as tf; \
+sm = tf.saved_model.load('/models/saved_models/modelo_mnist_savedmodel'); \
+print('OK load. has_serve =', hasattr(sm, 'serve'))"
+```
+
+Es la opción más robusta para inferencia y queda como mejora pendiente; la
+versión actual del servicio usa `.h5`.
+
+### Incidente B — Autoreload de Django y funciones de TensorFlow
+
+**Síntoma.** Respuestas HTTP 500 con el mensaje
+*"Called a function referencing variables which have been deleted"*.
+
+**Causa raíz.** El autoreloader de Django reinicia procesos e hilos. Si el
+modelo se carga más de una vez, o en el proceso equivocado, las referencias
+internas a las variables de TensorFlow quedan inválidas.
+
+**Mitigación.** Levantar con `runserver --noreload` en desarrollo, y cargar el
+modelo una sola vez en `apps.py`.
+
+### Incidente C — "Error de conexión" en la UI con la API funcionando
+
+**Síntoma.** La interfaz mostraba error de conexión, pero el endpoint respondía
+correctamente al llamarlo con `requests` o `fetch`.
+
+**Causa raíz.** El frontend enviaba un payload con una forma distinta a la
+esperada, y capturaba cualquier fallo bajo un mismo mensaje genérico, lo que
+ocultaba la causa real. Un 405 en una petición GET de prueba se leía como caída
+del servicio.
+
+**Corrección.** Fijar el contrato (`{image}` → `{pred, probs}`), y diferenciar
+en el manejo de errores del cliente entre fallo de red, error 4xx y error 5xx.
+
+### Checklist de regresión
+
+- [ ] El artefacto existe en `models/saved_models/` y el volumen está montado.
+- [ ] `apps.py` carga el modelo una sola vez, al arranque.
+- [ ] En desarrollo, `runserver --noreload`.
+- [ ] El frontend envía `{ image: canvas.toDataURL(...) }` y consume `{ pred, probs }`.
+- [ ] `POST /api/v1/predict/` responde 200; `GET` responde 405.
 
 ---
 
-## ⚠️ Disclaimer
+## Evolución del proyecto
 
-Este software es una demostración de arquitectura de datos e ingeniería MLOps. Los modelos de clasificación de imágenes pueden estar sujetos a sesgos o errores según el trazo del usuario.
+| Versión | Ejecución | Manejo del modelo | Estado |
+| --- | --- | --- | --- |
+| v1.0 | Notebook en Colab | Archivo local | Descontinuada |
+| v2.0 | Django en local | Lectura del archivo en cada petición | Descontinuada |
+| v3.0 | API en Docker | `.keras` — fallaba al deserializar | Descontinuada |
+| v4.0 | API en Docker | `.h5` cargado una vez en memoria | **Actual** |
 
 ---
 
-<div align="center">
-<p>Developed with 💻 & ☕ by <strong>Guillermo Vidal / Canis chilensis</strong></p>
-<p>
-<a href="#">
-<img src="[https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&logoColor=white](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&logoColor=white)" alt="LinkedIn" />
-</a>
-<a href="#">
-<img src="[https://img.shields.io/badge/GitHub-black?style=flat&logo=github&logoColor=white](https://img.shields.io/badge/GitHub-black?style=flat&logo=github&logoColor=white)" alt="GitHub" />
-</a>
-</p>
-</div>
+## Trabajo pendiente
+
+- Completar la tabla de [Resultados](#resultados) con accuracy en test y matriz
+  de confusión.
+- Migrar el artefacto a TensorFlow SavedModel (ver Incidente A).
+- Integrar MLflow para registro de experimentos y versionado del modelo.
+- Añadir integración continua que ejecute los tests en cada push.
+- Servir con Gunicorn en lugar del servidor de desarrollo de Django.
+- Medir latencia de inferencia (p50 y p95) bajo carga.
+- Añadir un archivo `LICENSE`.
+
+---
+
+Desarrollado por **Guillermo Vidal** — [@canischilensis](https://github.com/canischilensis)
