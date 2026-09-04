@@ -123,9 +123,6 @@ smartdigit/
 ## 🏁 Getting Started (Docker)
 
 La forma recomendada de ejecutar **SmartDigit** es mediante Docker Compose. Su máquina host no necesita tener instalado TensorFlow ni dependencias matemáticas complejas.
-
-Aquí tienes **una sección lista para pegar en tu README** (texto plano estilo Markdown). La redacté para que encaje con el enfoque “Production Ready / MLOps” que ya presentas en tu documento actual. 
-
 ---
 
 ## 🧯 Postmortem & Troubleshooting (Keras/TensorFlow → Docker/WSL)
@@ -258,9 +255,6 @@ fetch("http://127.0.0.1:8000/api/v1/predict/", {
 * [ ] El endpoint es `POST /api/v1/predict/` (GET puede devolver 405 y es normal).
 
 ---
-
-Si quieres, te lo dejo también como una sección **“Runbook”** (pasos exactos para reproducir + comandos de verificación), o lo ajusto a formato **Postmortem SRE** (Impacto / Detección / Timeline / Acciones Preventivas).
-
 
 ### 1. Clonar y Construir
 
